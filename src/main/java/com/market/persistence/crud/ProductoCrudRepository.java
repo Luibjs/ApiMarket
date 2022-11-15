@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductoCrudRepository extends CrudRepository<Producto,Integer> {
 
@@ -16,7 +17,7 @@ public interface ProductoCrudRepository extends CrudRepository<Producto,Integer>
     // AND estado -- para poner otra condicion
      /* consultara los productos que son menores de la cantidad que pase por parametro
      y que a su vez este activos*/
-     List<Producto> findByCantidadStrockLessThanAndEstado(int cantidadStrock,boolean estado);
+     Optional<List<Producto>> findByCantidadStrockLessThanAndEstado(int cantidadStrock, boolean estado);
 
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-//aca se crea los metodos que usan las query o consultas  ProductoCrudRepository y la que creo yo
+//aca se crea los metodos que van a implementar  las query o consultas de ProductoCrudRepository .
 
 @Repository
 public class ProductoRepository {
@@ -25,7 +25,7 @@ public class ProductoRepository {
 
     //los productos que son menores de la cantidad que pase por parametro
     // y que a su vez este activos
-    public List<Producto> getEscasos(int cantidad){
+    public Optional<List<Producto>> getEscasos(int cantidad){
         return  productoCrudRepository.findByCantidadStrockLessThanAndEstado(cantidad,true);
     }
 
