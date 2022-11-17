@@ -6,6 +6,7 @@ import com.market.persistence.crud.ProductoCrudRepository;
 import com.market.persistence.entity.Producto;
 import com.market.persistence.mapper.ProductMapper;
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
@@ -16,7 +17,11 @@ import java.util.Optional;
 
 @Repository
 public class ProductoRepository implements ProductRepository {
+
+    @Autowired //creando las instacias de estas clases con inyeccion de depencias
     private ProductoCrudRepository productoCrudRepository;
+
+    @Autowired
     private ProductMapper mapper;
 
     @Override
@@ -36,29 +41,25 @@ public class ProductoRepository implements ProductRepository {
         Optional<List<Producto>> productos =productoCrudRepository.findByCantidadStrockLessThanAndEstado(quantity,true);
         //como no tenemos un mapeador que convierta una lista de opcionales
         //se hace lo siguente , para que se retorne los prductos mapeados
-        //la funcion mapea los productos a prods y estos a su ves se mapean an products y los retorna
+        //la funcion mapea los productos a prods y estos a su ves se mapean a products y los retorna
         return productos.map(prods -> mapper.toProducts(prods));
     }
 
     @Override
     public Optional<Product> getProduct(int productId) {
-        return Optional.empty();
+        //usando el get para traer el producto
+        Producto producto = productoCrudRepository.findById(productId).get();
+        return Optional.of(mapper.toProduct(producto));
     }
 
     @Override
     public Product save(Product product) {
-        return null;
+        Producto producto = mapper.toProducto(product);
+        productoCrudRepository.save(producto);
+        return mapper.toProduct(producto);
     }
 
-
-    public Optional<Producto> getProducto(int id){
-        return productoCrudRepository.findById(id);
-    }
-
-    public Producto save(Producto producto){
-        return  productoCrudRepository.save(producto);
-    }
-
+    @Override
     public void delete(int id){
         productoCrudRepository.deleteById(id);
     }

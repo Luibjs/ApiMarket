@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 //clase para diseñar los conversores o mappers
 
 @Mapper(componentModel = "spring")
@@ -25,7 +27,7 @@ public interface CategoryMapper {
 
     })
     Category toCategory(Categoria categoria);
-
+    List<Category> toCategories(List<Categoria> categorias);
     //convercion viseversa de Category que es el dto a Categoria que es la entidad
 
     //esta anotacion nos evita realizar el mapeo a la inversa.

@@ -22,7 +22,7 @@ public interface ProductMapper {
 
             //mapeando una fk su pone el uses para que use el maper de esta clase
 
-            @Mapping(source = "categoria", target = "category"),
+            @Mapping(source = "categoria", target = "category")
 
     })
     Product toProduct (Producto producto);
